@@ -1,8 +1,8 @@
 -- Creación de la base de datos
-CREATE DATABASE SistemaHistoriasClinicas;
+CREATE DATABASE SistemaHistoriasClinicas2;
 GO
 
-USE SistemaHistoriasClinicas;
+USE SistemaHistoriasClinicas2;
 GO
 
 -- Creación de tipos de datos personalizados
