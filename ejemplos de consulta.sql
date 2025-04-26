@@ -106,10 +106,3 @@ CROSS JOIN Medicamentos m
 WHERE p.id_paciente IN (1, 2, 3) 
 AND m.nombre IN ('Clobetasol crema', 'Tacrolimus ungüento');
 GO
-
--- 9. Vista especializada para dermatología --
--- Consultar la vista para un paciente específico
-SELECT * FROM VistaHistorialDermatologico 
-WHERE id_paciente = 1 
-ORDER BY fecha_consulta DESC;
-GO
