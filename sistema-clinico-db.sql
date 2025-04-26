@@ -146,7 +146,7 @@ GO
 
 INSERT INTO Medicos (nombre_completo, dni, telefono, correo_electronico, especialidad, numero_colegiatura)
 VALUES 
-('Dr. Julio Hugo Vega Zuñiga', '44556677', '945678901', 'drvega@clinicava.com', 'Dermatologo', 'CM12345'),
+('Dr. Julio Hugo Vega Zuñiga', '44556677', '945678901', 'drvega@clinicava.com', 'Dermatologo', 'CM12345')
 GO
 
 INSERT INTO Medicamentos (nombre, descripcion, presentacion, contraindicaciones)
@@ -183,7 +183,7 @@ VALUES
  'Placas eritematoescamosas bien delimitadas de 2-5 cm en superficies extensoras. Signo de Auspitz positivo.', 
  'Corticoides tópicos potentes, emolientes y fototerapia UVB'),
 
-(2, 2, '2023-10-16 11:00:00', 'Dermatitis atópica moderada', 
+(2, 1, '2023-10-16 11:00:00', 'Dermatitis atópica moderada', 
  'Niña de 8 años con brote de eccema en pliegues y prurito intenso que interfiere con el sueño', 
  'Piel eritematosa, liquenificada en pliegues antecubitales y poplíteos. Xerosis generalizada.', 
  'Inmunomoduladores tópicos, antihistamínicos orales y plan de hidratación cutánea'),
@@ -197,9 +197,9 @@ GO
 -- Crear recetas dermatológicas
 INSERT INTO Recetas (id_consulta, diagnostico, sello_medico, firma_medico)
 VALUES 
-(1, 'Psoriasis en placas crónica exacerbada', 'Clínica Dermatológica Especializada', 'Dr. Javier Ramos D.'),
-(2, 'Dermatitis atópica moderada con sobreinfección bacteriana', 'Clínica Dermatológica Especializada', 'Dra. Ana Sánchez D.'),
-(3, 'Acné conglobata resistente a tratamiento convencional', 'Clínica Dermatológica Especializada', 'Dr. Javier Ramos D.');
+(1, 'Psoriasis en placas crónica exacerbada', 'Clínica Dermatológica Especializada', 'Dr. Julio Hugo Vega Zuñiga'),
+(2, 'Dermatitis atópica moderada con sobreinfección bacteriana', 'Clínica Dermatológica Especializada', 'Dr. Julio Hugo Vega Zuñiga'),
+(3, 'Acné conglobata resistente a tratamiento convencional', 'Clínica Dermatológica Especializada', 'Dr. Julio Hugo Vega Zuñiga');
 GO
 
 -- Agregar detalles de recetas dermatológicas
