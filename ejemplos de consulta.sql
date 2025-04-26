@@ -106,3 +106,43 @@ CROSS JOIN Medicamentos m
 WHERE p.id_paciente IN (1, 2, 3) 
 AND m.nombre IN ('Clobetasol crema', 'Tacrolimus ungüento');
 GO
+
+
+
+_____________
+-- HISTORIAL --
+SELECT p.nombre_completo, c.fecha_consulta, c.tipo_enfermedad, r.diagnostico
+FROM Pacientes p
+JOIN HistoriasClinicas h ON p.id_paciente = h.id_paciente
+JOIN Consultas c ON h.id_historia = c.id_historia
+LEFT JOIN Recetas r ON c.id_consulta = r.id_consulta
+WHERE p.dni = '11223344';
+
+
+
+-- BUSQUEDAS
+-- Por DNI
+SELECT p.id_paciente, p.nombre_completo, p.dni, p.telefono, p.correo_electronico
+FROM Pacientes p
+WHERE p.dni = '22334455';
+
+-- Por nombre (búsqueda parcial)
+SELECT p.id_paciente, p.nombre_completo, p.dni
+FROM Pacientes p
+WHERE p.nombre_completo LIKE '%García%';
+
+-- Pacientes menores de edad (nacidos después del 2005)
+SELECT * FROM Pacientes WHERE YEAR(fecha_nacimiento) > 2005 AND es_menor_edad = 1;
+
+
+
+
+-- REGISTRAR UN APODERADO Y PACIENTE MENOR
+-- Registro del apoderado
+INSERT INTO Apoderados (nombre_completo, dni, telefono, correo_electronico, parentesco)
+VALUES ('Carmen Vásquez Torres', '74563218', '912345678', 'carmen.vasquez@email.com', 'Madre');
+
+-- Registro del menor
+INSERT INTO Pacientes (nombre_completo, dni, telefono, correo_electronico, fecha_nacimiento, es_menor_edad, id_apoderado)
+VALUES ('Daniel Vásquez Torres', '85214796', NULL, NULL, '2018-09-12', 1, 
+        (SELECT id_apoderado FROM Apoderados WHERE dni = '74563218'));
