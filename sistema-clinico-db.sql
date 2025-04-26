@@ -202,14 +202,14 @@ GO
 
 -- Agregar detalles de recetas dermatológicas
 -- Asegúrate de que las recetas existan antes de agregar los detalles
-INSERT INTO DetalleRecetas (id_receta, id_medicamento, id_indicacion, duracion_tratamiento, cantidad, instrucciones_adicionales)
+INSERT INTO DetalleRecetas (id_receta, id_indicacion, duracion_tratamiento, cantidad, instrucciones_adicionales)
 VALUES 
-(1, 1, 1, '4 semanas', 2, 'Aplicar en capa fina solo en áreas afectadas, evitar uso facial'),
-(1, 5, 5, '8 semanas', 1, 'Usar como mantenimiento después de controlar brote agudo'),
+(1, 1, '4 semanas', 2, 'Aplicar en capa fina solo en áreas afectadas, evitar uso facial'),
+(1, 5, '8 semanas', 1, 'Usar como mantenimiento después de controlar brote agudo'),
 
-(2, 5, 5, '6 semanas', 1, 'Aplicar en pliegues afectados dos veces al día'),
-(2, 4, 4, 'Continuo', 2, 'Usar en cuero cabelludo en áreas de alopecia'),
+(2, 5, '6 semanas', 1, 'Aplicar en pliegues afectados dos veces al día'),
+(2, 4, 'Continuo', 2, 'Usar en cuero cabelludo en áreas de alopecia'),
 
-(3, 3, 3, '20 semanas', 60, 'Tomar con alimentos grasos para mejorar absorción'),
-(3, 2, 2, '2 semanas', 1, 'Aplicar en lesiones inflamatorias como coadyuvante');
+(3, 3, '20 semanas', 60, 'Tomar con alimentos grasos para mejorar absorción'),
+(3, 2, '2 semanas', 1, 'Aplicar en lesiones inflamatorias como coadyuvante');
 GO
