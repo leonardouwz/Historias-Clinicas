@@ -5,11 +5,6 @@ SELECT * FROM Pacientes WHERE YEAR(fecha_nacimiento) > 2005 AND es_menor_edad = 
 -- Médicos dermatólogos activos
 SELECT nombre_completo, dni FROM Medicos WHERE estado = 1 AND especialidad LIKE '%Dermatolog%';
 
--- Consultas realizadas en octubre 2023
-SELECT * FROM Consultas 
-WHERE fecha_consulta BETWEEN '2023-10-01' AND '2023-10-31'
-ORDER BY fecha_consulta DESC;
-
 -- Medicamentos específicos para dermatitis y psoriasis
 SELECT * FROM Medicamentos 
 WHERE id_medicamento IN (1, 5) OR nombre LIKE '%crema%' OR nombre LIKE '%ungüento%';
@@ -36,9 +31,6 @@ WHERE id_medicamento IN (SELECT id_medicamento FROM Medicamentos WHERE estado = 
 GO
 
 -- 4. ALTER TABLE para agregar columnas --
--- Agregar área afectada a las consultas dermatológicas
-ALTER TABLE Consultas ADD area_afectada NVARCHAR(100) NULL;
-
 -- Agregar tipo de piel a pacientes
 ALTER TABLE Pacientes ADD tipo_piel NVARCHAR(50) NULL 
 CHECK (tipo_piel IN ('Normal', 'Seca', 'Grasa', 'Mixta', 'Sensible'));
@@ -115,40 +107,7 @@ WHERE p.id_paciente IN (1, 2, 3)
 AND m.nombre IN ('Clobetasol crema', 'Tacrolimus ungüento');
 GO
 
--- 9. SET DATEFORMAT --
--- Configurar formato de fecha día/mes/año
-SET DATEFORMAT dmy;
-
--- Insertar nueva consulta con formato de fecha específico
-INSERT INTO Consultas (id_historia, id_medico, fecha_consulta, tipo_enfermedad)
-VALUES (1, 1, '15/11/2023 10:30:00', 'Dermatitis de contacto');
-GO
-
--- 10. Vista especializada para dermatología --
--- Crear vista para historial dermatológico completo
-CREATE VIEW VistaHistorialDermatologico AS
-SELECT 
-    p.id_paciente,
-    p.nombre_completo AS paciente,
-    p.dni,
-    DATEDIFF(YEAR, p.fecha_nacimiento, GETDATE()) AS edad,
-    c.id_consulta,
-    c.fecha_consulta,
-    c.tipo_enfermedad,
-    c.diagnostico,
-    STRING_AGG(m.nombre, ', ') AS medicamentos_recetados,
-    COUNT(dr.id_detalle) AS cantidad_medicamentos
-FROM Pacientes p
-JOIN HistoriasClinicas h ON p.id_paciente = h.id_paciente
-JOIN Consultas c ON h.id_historia = c.id_historia
-LEFT JOIN Recetas r ON c.id_consulta = r.id_consulta
-LEFT JOIN DetalleRecetas dr ON r.id_receta = dr.id_receta
-LEFT JOIN Medicamentos m ON dr.id_medicamento = m.id_medicamento
-GROUP BY 
-    p.id_paciente, p.nombre_completo, p.dni, p.fecha_nacimiento,
-    c.id_consulta, c.fecha_consulta, c.tipo_enfermedad, c.diagnostico;
-GO
-
+-- 9. Vista especializada para dermatología --
 -- Consultar la vista para un paciente específico
 SELECT * FROM VistaHistorialDermatologico 
 WHERE id_paciente = 1 
