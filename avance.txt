@@ -2,4 +2,5 @@
 1. CREATE
 2. ALTER
 3. DROP
-4.
+4. UPDATE
+5. 
