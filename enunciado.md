@@ -1,4 +1,4 @@
-# Solicitud de Desarrollo de Sistema de Historias Clínicas
+# Sistema de Historias Clínicas
 
 ## Objetivo
 Necesito un sistema digital para gestionar las historias clínicas de mis pacientes que sea fácil de usar pero completo. Debe permitirme registrar toda la información relevante de cada consulta, incluyendo recetas médicas, y mantener un historial accesible para futuras atenciones.
