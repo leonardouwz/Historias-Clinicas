@@ -119,13 +119,11 @@ GO
 CREATE TABLE DetalleRecetas (
     id_detalle INT IDENTITY(1,1) PRIMARY KEY,
     id_receta INT NOT NULL,
-    id_medicamento INT NOT NULL,
     id_indicacion INT NOT NULL,
     duracion_tratamiento NVARCHAR(100) NOT NULL,
     cantidad INT NOT NULL,
     instrucciones_adicionales NVARCHAR(MAX),
     CONSTRAINT FK_Detalle_Receta FOREIGN KEY (id_receta) REFERENCES Recetas(id_receta),
-    CONSTRAINT FK_Detalle_Medicamento FOREIGN KEY (id_medicamento) REFERENCES Medicamentos(id_medicamento),
     CONSTRAINT FK_Detalle_Indicacion FOREIGN KEY (id_indicacion) REFERENCES IndicacionesMedicamentos(id_indicacion)
 );
 GO
