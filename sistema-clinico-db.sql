@@ -1,8 +1,8 @@
 -- Creación de la base de datos
-CREATE DATABASE SistemaHistoriasClinicas2;
+CREATE DATABASE SistemaHistoriasClinicas;
 GO
 
-USE SistemaHistoriasClinicas2;
+USE SistemaHistoriasClinicas;
 GO
 
 -- Creación de tipos de datos personalizados
@@ -145,8 +145,7 @@ VALUES
 GO
 
 INSERT INTO Medicos (nombre_completo, dni, telefono, correo_electronico, especialidad, numero_colegiatura)
-VALUES 
-('Dr. Julio Hugo Vega Zuñiga', '44556677', '945678901', 'drvega@clinicava.com', 'Dermatologo', 'CM12345')
+VALUES ('Dr. Julio Hugo Vega Zuñiga', '44556677', '945678901', 'drvega@clinicava.com', 'Dermatologo', 'CM12345');
 GO
 
 INSERT INTO Medicamentos (nombre, descripcion, presentacion, contraindicaciones)
@@ -157,7 +156,7 @@ VALUES
 ('Minoxidil solución', 'Vasodilatador para alopecia', 'Solución 5% 60ml', 'Hipersensibilidad al minoxidil'),
 ('Tacrolimus ungüento', 'Inmunomodulador tópico', 'Ungüento 0.1% 30g', 'Hipersensibilidad al tacrolimus');
 GO
-    
+
 INSERT INTO IndicacionesMedicamentos (id_medicamento, indicacion, dosis_recomendada, frecuencia, duracion_maxima)
 VALUES 
 (1, 'Dermatitis severa, psoriasis', 'Aplicar capa fina', '2 veces al día', '2 semanas continuas'),
@@ -175,26 +174,27 @@ VALUES
 (3, 'Yodo, perfumes', 'Acné quístico en adolescencia', 'Esclerosis sistémica en abuela');
 GO
 
--- Crear consultas dermatológicas
+-- Crear consultas dermatológicas (corregido formato de fecha)
 INSERT INTO Consultas (id_historia, id_medico, fecha_consulta, tipo_enfermedad, historia_enfermedad, examen_fisico, plan_tratamiento)
 VALUES 
-(1, 1, '2023-10-15 09:30:00', 'Psoriasis en placas', 
+(1, 1, '2023-10-15T09:30:00', 'Psoriasis en placas', 
  'Paciente refiere exacerbación de placas en codos y rodillas con picor intenso desde hace 3 semanas', 
  'Placas eritematoescamosas bien delimitadas de 2-5 cm en superficies extensoras. Signo de Auspitz positivo.', 
  'Corticoides tópicos potentes, emolientes y fototerapia UVB'),
 
-(2, 1, '2023-10-16 11:00:00', 'Dermatitis atópica moderada', 
+(2, 1, '2023-10-16T11:00:00', 'Dermatitis atópica moderada', 
  'Niña de 8 años con brote de eccema en pliegues y prurito intenso que interfiere con el sueño', 
  'Piel eritematosa, liquenificada en pliegues antecubitales y poplíteos. Xerosis generalizada.', 
  'Inmunomoduladores tópicos, antihistamínicos orales y plan de hidratación cutánea'),
 
-(3, 1, '2023-10-17 16:45:00', 'Acné quístico severo', 
+(3, 1, '2023-10-17T16:45:00', 'Acné quístico severo', 
  'Adolescente de 16 años con lesiones noduloquísticas en cara y espalda resistentes a tratamientos previos', 
  'Múltiples pápulas, pústulas y nódulos inflamatorios en zona T y espalda. Cicatrices hipertróficas incipientes.', 
  'Isotretinoína oral con monitoreo mensual, protección solar estricta y cuidados dermocosméticos');
 GO
 
 -- Crear recetas dermatológicas
+-- Asegúrate de que las consultas existan antes de crear las recetas
 INSERT INTO Recetas (id_consulta, diagnostico, sello_medico, firma_medico)
 VALUES 
 (1, 'Psoriasis en placas crónica exacerbada', 'Clínica Dermatológica Especializada', 'Dr. Julio Hugo Vega Zuñiga'),
@@ -203,6 +203,7 @@ VALUES
 GO
 
 -- Agregar detalles de recetas dermatológicas
+-- Asegúrate de que las recetas existan antes de agregar los detalles
 INSERT INTO DetalleRecetas (id_receta, id_medicamento, id_indicacion, duracion_tratamiento, cantidad, instrucciones_adicionales)
 VALUES 
 (1, 1, 1, '4 semanas', 2, 'Aplicar en capa fina solo en áreas afectadas, evitar uso facial'),
@@ -214,4 +215,3 @@ VALUES
 (3, 3, 3, '20 semanas', 60, 'Tomar con alimentos grasos para mejorar absorción'),
 (3, 2, 2, '2 semanas', 1, 'Aplicar en lesiones inflamatorias como coadyuvante');
 GO
-
