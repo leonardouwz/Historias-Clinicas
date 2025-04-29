@@ -21,3 +21,6 @@
 19. DISTINCT
 20. (LEFT, RIGHT, FULL) EXCLUDING JOIN
 21. CROSS JOIN
+22. Funciones de columna
+23. Funciones escalares
+24. index (nonclustered, clustered)
