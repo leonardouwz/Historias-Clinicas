@@ -24,3 +24,5 @@
 22. Funciones de columna
 23. Funciones escalares
 24. index (nonclustered, clustered)
+25. group by, having
+26. funciones y procedimientos almacenados
