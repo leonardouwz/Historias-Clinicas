@@ -26,3 +26,4 @@
 24. index (nonclustered, clustered)
 25. group by, having
 26. funciones y procedimientos almacenados
+27. postgresql
