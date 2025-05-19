@@ -27,3 +27,4 @@
 25. group by, having
 26. funciones y procedimientos almacenados
 27. postgresql
+28. esquemas
