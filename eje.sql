@@ -1,10 +1,10 @@
--- =====================================================
+ 
 
 
 -- 1. PROCEDIMIENTO PARA CONSULTAR EMPLEADOS POR DEPARTAMENTO
 
 CREATE PROCEDURE sp_EmpleadosPorDepartamento
-    @NombreDepartamento NVARCHAR(50)
+     @NDpto NVARCHAR(50)
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -21,17 +21,17 @@ BEGIN
     INNER JOIN Person.Person p ON e.BusinessEntityID = p.BusinessEntityID
     INNER JOIN HumanResources.EmployeeDepartmentHistory edh ON e.BusinessEntityID = edh.BusinessEntityID
     INNER JOIN HumanResources.Department d ON edh.DepartmentID = d.DepartmentID
-    WHERE d.Name = @NombreDepartamento
+    WHERE d.Name =  @NDpto
       AND edh.EndDate IS NULL -- Solo empleados activos en el departamento
     ORDER BY p.LastName, p.FirstName;
 END;
 
 -- Prueba del procedimiento 1
-EXEC sp_EmpleadosPorDepartamento @NombreDepartamento = 'Engineering';
+EXEC sp_EmpleadosPorDepartamento  @NDpto = 'Engineering';
 
--- =====================================================
+ 
 -- 2. PROCEDIMIENTO PARA INSERTAR NUEVA PERSONA
--- =====================================================
+ 
 CREATE PROCEDURE sp_InsertarPersona
     @FirstName NVARCHAR(50),
     @LastName NVARCHAR(50),
@@ -77,16 +77,14 @@ BEGIN
     PRINT 'Persona insertada correctamente';
 END;
 
--- Nota: Para SQL Server, necesitamos crear la secuencia si no existe
--- CREATE SEQUENCE Person.BusinessEntityID_seq START WITH 20778 INCREMENT BY 1;
 
 -- Pruebas del procedimiento 2
 EXEC sp_InsertarPersona @FirstName = 'Juan', @LastName = 'Pérez', @MiddleName = 'Carlos';
 EXEC sp_InsertarPersona @FirstName = 'Juan', @LastName = 'Pérez', @MiddleName = 'Carlos'; -- Debe mostrar que ya existe
 
--- =====================================================
+ 
 -- 3. PROCEDIMIENTO PARA ACTUALIZAR SALARIO
--- =====================================================
+ 
 CREATE PROCEDURE sp_ActualizarSalario
     @BusinessEntityID INT,
     @NuevoSalario MONEY
@@ -138,9 +136,9 @@ EXEC sp_ActualizarSalario @BusinessEntityID = 1, @NuevoSalario = 50.00;
 EXEC sp_ActualizarSalario @BusinessEntityID = 1, @NuevoSalario = 30.00; -- Debe mostrar error
 EXEC sp_ActualizarSalario @BusinessEntityID = 99999, @NuevoSalario = 50.00; -- Empleado inexistente
 
--- =====================================================
+ 
 -- 4. PROCEDIMIENTO PARA ELIMINAR PRODUCTO
--- =====================================================
+ 
 CREATE PROCEDURE sp_EliminarProducto
     @ProductID INT
 AS
@@ -180,9 +178,9 @@ EXEC sp_EliminarProducto @ProductID = 999; -- Producto inexistente
 -- EXEC sp_EliminarProducto @ProductID = [ID_SIN_ORDENES]; -- Usar un ID válido sin órdenes
 -- EXEC sp_EliminarProducto @ProductID = 707; -- Producto con órdenes (debe mostrar error)
 
--- =====================================================
+ 
 -- CONSULTAS AUXILIARES PARA VERIFICAR DATOS
--- =====================================================
+ 
 
 -- Ver departamentos disponibles
 SELECT DISTINCT Name FROM HumanResources.Department ORDER BY Name;
