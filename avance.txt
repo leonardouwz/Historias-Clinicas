@@ -28,6 +28,7 @@
 26. funciones y procedimientos almacenados
 27. postgresql
 28. esquemas
-29. tabla historial (datos historicos)
-30. triggers
-31. commit, rollback
+29. vistas
+30. tabla historial (datos historicos)
+31. triggers
+32. commit, rollback
