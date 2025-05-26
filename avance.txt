@@ -29,3 +29,4 @@
 27. postgresql
 28. esquemas
 29. tabla historial (datos historicos)
+30. triggers
