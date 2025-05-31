@@ -12,6 +12,13 @@
 -- Configuración inicial importante
 SET DATEFORMAT dmy
 GO
+-- Eliminar base de datos si existe para empezar limpio
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'SistemaHistoriasClinicas')
+BEGIN
+    ALTER DATABASE SistemaHistoriasClinicas SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE SistemaHistoriasClinicas;
+END
+GO
 CREATE DATABASE SistemaHistoriasClinicas;
 GO
 USE SistemaHistoriasClinicas;
