@@ -32,3 +32,5 @@
 30. tabla historial (datos historicos)
 31. triggers
 32. commit, rollback
+33. seguridad e integridad de datos
+34. no sql, mongodb
