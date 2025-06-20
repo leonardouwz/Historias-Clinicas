@@ -1,0 +1,47 @@
+[
+  {
+    "_id": 1,
+    "nombre_completo": "Carlos Pérez Vega",
+    "dni": "55667788",
+    "parentesco": "Padre",
+    "id_contacto": 3,
+    "estado": true,
+    "fecha_creacion": "2025-01-14T15:00:00.000Z"
+  },
+  {
+    "_id": 2,
+    "nombre_completo": "María González López",
+    "dni": "44556677",
+    "parentesco": "Madre",
+    "id_contacto": 2,
+    "estado": true,
+    "fecha_creacion": "2025-01-12T11:15:00.000Z"
+  },
+  {
+    "_id": 3,
+    "nombre_completo": "Ana Rodríguez Silva",
+    "dni": "33445566",
+    "parentesco": "Madre",
+    "id_contacto": 4,
+    "estado": true,
+    "fecha_creacion": "2025-01-16T12:30:00.000Z"
+  },
+  {
+    "_id": 4,
+    "nombre_completo": "Juan Martínez Torres",
+    "dni": "22334455",
+    "parentesco": "Padre",
+    "id_contacto": 5,
+    "estado": true,
+    "fecha_creacion": "2025-01-18T17:20:00.000Z"
+  },
+  {
+    "_id": 5,
+    "nombre_completo": "Sofía Torres Mendez",
+    "dni": "66778899",
+    "parentesco": "Madre",
+    "id_contacto": 7,
+    "estado": true,
+    "fecha_creacion": "2025-01-22T14:45:00.000Z"
+  }
+]

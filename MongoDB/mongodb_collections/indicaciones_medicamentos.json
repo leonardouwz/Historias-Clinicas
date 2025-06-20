@@ -1,0 +1,112 @@
+[
+  {
+    "_id": 1,
+    "id_medicamento": 1,
+    "indicacion": "Acné vulgar",
+    "dosis_recomendada": "Aplicar capa fina en área afectada",
+    "frecuencia": "Una vez al día por la noche",
+    "duracion_maxima": "12 semanas",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-10T08:30:00.000Z"
+  },
+  {
+    "_id": 2,
+    "id_medicamento": 1,
+    "indicacion": "Fotoenvejecimiento",
+    "dosis_recomendada": "Aplicar capa fina en rostro",
+    "frecuencia": "Cada tercer día inicialmente",
+    "duracion_maxima": "6 meses",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-10T08:30:00.000Z"
+  },
+  {
+    "_id": 3,
+    "id_medicamento": 2,
+    "indicacion": "Acné inflamatorio",
+    "dosis_recomendada": "Aplicar en lesiones activas",
+    "frecuencia": "Dos veces al día",
+    "duracion_maxima": "8 semanas",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-10T08:30:00.000Z"
+  },
+  {
+    "_id": 4,
+    "id_medicamento": 3,
+    "indicacion": "Dermatitis de contacto",
+    "dosis_recomendada": "Aplicar capa delgada",
+    "frecuencia": "Dos a tres veces al día",
+    "duracion_maxima": "2 semanas",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-11T09:45:00.000Z"
+  },
+  {
+    "_id": 5,
+    "id_medicamento": 3,
+    "indicacion": "Eccema leve",
+    "dosis_recomendada": "Aplicar en área inflamada",
+    "frecuencia": "Una a dos veces al día",
+    "duracion_maxima": "1 semana",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-11T09:45:00.000Z"
+  },
+  {
+    "_id": 6,
+    "id_medicamento": 4,
+    "indicacion": "Fotoprotección diaria",
+    "dosis_recomendada": "2 mg/cm² de piel",
+    "frecuencia": "Aplicar 30 minutos antes de exposición solar",
+    "duracion_maxima": "Uso continuo",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-12T11:00:00.000Z"
+  },
+  {
+    "_id": 7,
+    "id_medicamento": 5,
+    "indicacion": "Dermatitis seborreica",
+    "dosis_recomendada": "Aplicar en cuero cabelludo húmedo",
+    "frecuencia": "Dos veces por semana",
+    "duracion_maxima": "4 semanas",
+    "via_administracion": "Tópica capilar",
+    "estado": true,
+    "fecha_creacion": "2025-01-13T14:45:00.000Z"
+  },
+  {
+    "_id": 8,
+    "id_medicamento": 6,
+    "indicacion": "Hiperqueratosis",
+    "dosis_recomendada": "Aplicar en lesiones queratósicas",
+    "frecuencia": "Una vez al día",
+    "duracion_maxima": "6 semanas",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-14T12:15:00.000Z"
+  },
+  {
+    "_id": 9,
+    "id_medicamento": 7,
+    "indicacion": "Alopecia androgenética masculina",
+    "dosis_recomendada": "1 ml en cuero cabelludo",
+    "frecuencia": "Dos veces al día",
+    "duracion_maxima": "12 meses para evaluar respuesta",
+    "via_administracion": "Tópica capilar",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T16:30:00.000Z"
+  },
+  {
+    "_id": 10,
+    "id_medicamento": 8,
+    "indicacion": "Dermatitis atópica",
+    "dosis_recomendada": "Aplicar capa fina",
+    "frecuencia": "Dos veces al día",
+    "duracion_maxima": "6 semanas",
+    "via_administracion": "Tópica",
+    "estado": true,
+    "fecha_creacion": "2025-01-16T13:00:00.000Z"
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "_id": 1,
+    "id_consulta": 1,
+    "diagnostico": "Acné vulgar moderado",
+    "fecha_emision": "2025-06-10T10:30:00.000Z",
+    "fecha_vencimiento": "2025-07-10T23:59:59.000Z",
+    "estado_receta": "VIGENTE",
+    "detalles": [
+      {
+        "id_indicacion": 1,
+        "duracion_tratamiento": "4 semanas",
+        "cantidad": 1,
+        "instrucciones_adicionales": "Evitar exposición solar directa, usar protector solar",
+        "fecha_inicio_tratamiento": "2025-06-11T00:00:00.000Z",
+        "fecha_fin_tratamiento": "2025-07-09T23:59:59.000Z"
+      }
+    ]
+  },
+  {
+    "_id": 2,
+    "id_consulta": 2,
+    "diagnostico": "Dermatitis de contacto alérgica",
+    "fecha_emision": "2025-06-12T15:00:00.000Z",
+    "fecha_vencimiento": "2025-07-12T23:59:59.000Z",
+    "estado_receta": "COMPLETADA",
+    "detalles": [
+      {
+        "id_indicacion": 4,
+        "duracion_tratamiento": "10 días",
+        "cantidad": 1,
+        "instrucciones_adicionales": "Aplicar solo en área afectada, no usar más de 2 semanas",
+        "fecha_inicio_tratamiento": "2025-06-12T15:30:00.000Z",
+        "fecha_fin_tratamiento": "2025-06-22T23:59:59.000Z"
+      }
+    ]
+  },
+  {
+    "_id": 3,
+    "id_consulta": 3,
+    "diagnostico": "Dermatitis atópica moderada",
+    "fecha_emision": "2025-06-15T09:30:00.000Z",
+    "fecha_vencimiento": "2025-08-15T23:59:59.000Z",
+    "estado_receta": "VIGENTE",
+    "detalles": [
+      {
+        "id_indicacion": 10,
+        "duracion_tratamiento": "6 semanas",
+        "cantidad": 2,
+        "instrucciones_adicionales": "Aplicar en piel seca, no usar en cara por más de 2 semanas",
+        "fecha_inicio_tratamiento": "2025-06-15T20:00:00.000Z",
+        "fecha_fin_tratamiento": "2025-07-27T23:59:59.000Z"
+      }
+    ]
+  },
+  {
+    "_id": 4,
+    "id_consulta": 4,
+    "diagnostico": "Melasma facial",
+    "fecha_emision": "2025-06-18T16:30:00.000Z",
+    "fecha_vencimiento": "2025-09-18T23:59:59.000Z",
+    "estado_receta": "VIGENTE",
+    "detalles": [
+      {
+        "id_indicacion": 6,
+        "duracion_tratamiento": "12 semanas",
+        "cantidad": 3,
+        "instrucciones_adicionales": "Uso obligatorio diario, reaplicar cada 2 horas en exposición solar",
+        "fecha_inicio_tratamiento": "2025-06-19T00:00:00.000Z",
+        "fecha_fin_tratamiento": "2025-09-19T23:59:59.000Z"
+      }
+    ]
+  },
+  {
+    "_id": 5,
+    "id_consulta": 5,
+    "diagnostico": "Vitíligo focal",
+    "fecha_emision": "2025-06-20T12:00:00.000Z",
+    "fecha_vencimiento": "2025-08-20T23:59:59.000Z",
+    "estado_receta": "VIGENTE",
+    "detalles": [
+      {
+        "id_indicacion": 5,
+        "duracion_tratamiento": "8 semanas",
+        "cantidad": 2,
+        "instrucciones_adicionales": "Aplicar solo en lesiones despigmentadas, control semanal",
+        "fecha_inicio_tratamiento": "2025-06-21T00:00:00.000Z",
+        "fecha_fin_tratamiento": "2025-08-16T23:59:59.000Z"
+      }
+    ]
+  },
+  {
+    "_id": 6,
+    "id_consulta": 7,
+    "diagnostico": "Alopecia androgenética grado III",
+    "fecha_emision": "2025-06-21T09:15:00.000Z",
+    "fecha_vencimiento": "2025-12-21T23:59:59.000Z",
+    "estado_receta": "VIGENTE",
+    "detalles": [
+      {
+        "id_indicacion": 9,
+        "duracion_tratamiento": "24 semanas",
+        "cantidad": 6,
+        "instrucciones_adicionales": "Aplicar en cuero cabelludo seco, masajear suavemente, no lavar cabello por 4 horas",
+        "fecha_inicio_tratamiento": "2025-06-22T00:00:00.000Z",
+        "fecha_fin_tratamiento": "2025-12-21T23:59:59.000Z"
+      }
+    ]
+  }
+]

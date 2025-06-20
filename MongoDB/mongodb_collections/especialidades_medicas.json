@@ -1,0 +1,37 @@
+[
+  {
+    "_id": 1,
+    "nombre_especialidad": "Dermatología General",
+    "descripcion": "Atención dermatológica general y diagnóstico de enfermedades de la piel",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T08:00:00.000Z"
+  },
+  {
+    "_id": 2,
+    "nombre_especialidad": "Dermatología Pediátrica",
+    "descripcion": "Especialización en dermatología para niños y adolescentes",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T08:00:00.000Z"
+  },
+  {
+    "_id": 3,
+    "nombre_especialidad": "Dermatología Cosmética",
+    "descripcion": "Tratamientos estéticos y cosméticos de la piel",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T08:00:00.000Z"
+  },
+  {
+    "_id": 4,
+    "nombre_especialidad": "Dermatopatología",
+    "descripcion": "Diagnóstico patológico de enfermedades cutáneas",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T08:00:00.000Z"
+  },
+  {
+    "_id": 5,
+    "nombre_especialidad": "Dermatología Oncológica",
+    "descripcion": "Especialización en cáncer de piel y melanomas",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T08:00:00.000Z"
+  }
+]

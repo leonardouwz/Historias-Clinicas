@@ -1,0 +1,128 @@
+[
+  {
+    "_id": 1,
+    "id_paciente": 1,
+    "alergias": "Ninguna conocida",
+    "antecedentes": {
+      "personales": "Asma infantil controlado",
+      "familiares": "Padre con acné hereditario, madre con dermatitis"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "grasa",
+      "fototipo": "IV"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-14T16:30:00.000Z",
+      "modificacion": "2025-01-14T16:30:00.000Z"
+    }
+  },
+  {
+    "_id": 2,
+    "id_paciente": 2,
+    "alergias": "Alergia a níquel",
+    "antecedentes": {
+      "personales": "Dermatitis de contacto recurrente",
+      "familiares": "Madre con psoriasis"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "sensible",
+      "fototipo": "III"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-12T12:30:00.000Z",
+      "modificacion": "2025-01-12T12:30:00.000Z"
+    }
+  },
+  {
+    "_id": 3,
+    "id_paciente": 3,
+    "alergias": "Alergia a perfumes y colorantes",
+    "antecedentes": {
+      "personales": "Dermatitis atópica desde la infancia",
+      "familiares": "Padre con eccema"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "seca",
+      "fototipo": "II"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-16T13:45:00.000Z",
+      "modificacion": "2025-01-16T13:45:00.000Z"
+    }
+  },
+  {
+    "_id": 4,
+    "id_paciente": 4,
+    "alergias": "Ninguna conocida",
+    "antecedentes": {
+      "personales": "Melasma post-embarazo",
+      "familiares": "Abuela con cáncer de piel"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "mixta",
+      "fototipo": "III"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-18T18:30:00.000Z",
+      "modificacion": "2025-01-18T18:30:00.000Z"
+    }
+  },
+  {
+    "_id": 5,
+    "id_paciente": 5,
+    "alergias": "Alergia a medicamentos con sulfatos",
+    "antecedentes": {
+      "personales": "Vitíligo focal en brazos",
+      "familiares": "Tío paterno con vitíligo"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "normal",
+      "fototipo": "IV"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-22T16:00:00.000Z",
+      "modificacion": "2025-01-22T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": 6,
+    "id_paciente": 6,
+    "alergias": "Ninguna conocida",
+    "antecedentes": {
+      "personales": "Dermatitis del pañal recurrente (bebé)",
+      "familiares": "Madre con dermatitis seborreica"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "delicada",
+      "fototipo": "II"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-12T14:15:00.000Z",
+      "modificacion": "2025-01-12T14:15:00.000Z"
+    }
+  },
+  {
+    "_id": 7,
+    "id_paciente": 7,
+    "alergias": "Alergia a parabenos",
+    "antecedentes": {
+      "personales": "Alopecia androgenética progresiva",
+      "familiares": "Padre y abuelo paterno con calvicie"
+    },
+    "caracteristicas_piel": {
+      "tipo_piel": "grasa",
+      "fototipo": "V"
+    },
+    "estado": true,
+    "fechas": {
+      "creacion": "2025-01-24T11:50:00.000Z",
+      "modificacion": "2025-01-24T11:50:00.000Z"
+    }
+  }
+]

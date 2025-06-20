@@ -1,0 +1,149 @@
+[
+  {
+    "_id": 1,
+    "id_historia": 1,
+    "id_medico": 1,
+    "fecha_consulta": "2025-06-10T10:00:00.000Z",
+    "consulta": {
+      "motivo": "Brotes de acné en rostro",
+      "tipo_enfermedad": "acné",
+      "historia_enfermedad": "Paciente refiere aparición de lesiones pustulosas en mejillas hace 2 meses"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Lesiones pustulosas y comedones en mejillas y frente. Piel grasa",
+      "plan_tratamiento": "Iniciar tratamiento con tretinoína tópica y limpieza facial",
+      "observaciones": "Revisión en 3 semanas para evaluar tolerancia al tratamiento"
+    },
+    "estado_consulta": "ACTIVA",
+    "fechas": {
+      "creacion": "2025-06-10T10:00:00.000Z",
+      "modificacion": "2025-06-10T10:00:00.000Z"
+    }
+  },
+  {
+    "_id": 2,
+    "id_historia": 2,
+    "id_medico": 1,
+    "fecha_consulta": "2025-06-12T14:30:00.000Z",
+    "consulta": {
+      "motivo": "Dermatitis de contacto en manos",
+      "tipo_enfermedad": "dermatitis_contacto",
+      "historia_enfermedad": "Aparición de eritema y vesículas en manos tras uso de nuevo detergente"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Eritema, edema y vesículas en dorso de ambas manos",
+      "plan_tratamiento": "Corticoide tópico y evitar contacto con irritantes",
+      "observaciones": "Mejoría esperada en 7-10 días"
+    },
+    "estado_consulta": "COMPLETADA",
+    "fechas": {
+      "creacion": "2025-06-12T14:30:00.000Z",
+      "modificacion": "2025-06-20T09:15:00.000Z"
+    }
+  },
+  {
+    "_id": 3,
+    "id_historia": 3,
+    "id_medico": 2,
+    "fecha_consulta": "2025-06-15T09:00:00.000Z",
+    "consulta": {
+      "motivo": "Control de dermatitis atópica",
+      "tipo_enfermedad": "dermatitis_atopica",
+      "historia_enfermedad": "Paciente con dermatitis atópica crónica, exacerbación en pliegues"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Placas eritematosas descamativas en pliegues antecubitales",
+      "plan_tratamiento": "Tacrolimus tópico y medidas de hidratación",
+      "observaciones": "Educación sobre cuidados de piel atópica"
+    },
+    "estado_consulta": "ACTIVA",
+    "fechas": {
+      "creacion": "2025-06-15T09:00:00.000Z",
+      "modificacion": "2025-06-15T09:00:00.000Z"
+    }
+  },
+  {
+    "_id": 4,
+    "id_historia": 4,
+    "id_medico": 3,
+    "fecha_consulta": "2025-06-18T16:00:00.000Z",
+    "consulta": {
+      "motivo": "Consulta estética por melasma",
+      "tipo_enfermedad": "melasma",
+      "historia_enfermedad": "Aparición de manchas simétricas en rostro post-embarazo hace 2 años"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Máculas hiperpigmentadas simétricas en mejillas y frente",
+      "plan_tratamiento": "Protocolo despigmentante con hidroquinona y protección solar",
+      "observaciones": "Tratamiento a largo plazo, resultados en 3-6 meses"
+    },
+    "estado_consulta": "ACTIVA",
+    "fechas": {
+      "creacion": "2025-06-18T16:00:00.000Z",
+      "modificacion": "2025-06-18T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": 5,
+    "id_historia": 5,
+    "id_medico": 1,
+    "fecha_consulta": "2025-06-20T11:30:00.000Z",
+    "consulta": {
+      "motivo": "Evaluación de vitíligo",
+      "tipo_enfermedad": "vitiligo",
+      "historia_enfermedad": "Pérdida de pigmentación en brazos progresiva desde hace 6 meses"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Máculas acrómicas bien delimitadas en antebrazos",
+      "plan_tratamiento": "Fototerapia UVB y corticoides tópicos",
+      "observaciones": "Inicio de tratamiento, control mensual"
+    },
+    "estado_consulta": "ACTIVA",
+    "fechas": {
+      "creacion": "2025-06-20T11:30:00.000Z",
+      "modificacion": "2025-06-20T11:30:00.000Z"
+    }
+  },
+  {
+    "_id": 6,
+    "id_historia": 6,
+    "id_medico": 2,
+    "fecha_consulta": "2025-06-14T10:15:00.000Z",
+    "consulta": {
+      "motivo": "Control pediátrico dermatológico",
+      "tipo_enfermedad": "dermatitis_del_panal",
+      "historia_enfermedad": "Eritema recurrente en zona del pañal"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Eritema leve en área perianal, sin fisuras",
+      "plan_tratamiento": "Pasta al agua y cambios frecuentes de pañal",
+      "observaciones": "Cuidados preventivos, control si persiste"
+    },
+    "estado_consulta": "COMPLETADA",
+    "fechas": {
+      "creacion": "2025-06-14T10:15:00.000Z",
+      "modificacion": "2025-06-19T14:20:00.000Z"
+    }
+  },
+  {
+    "_id": 7,
+    "id_historia": 7,
+    "id_medico": 1,
+    "fecha_consulta": "2025-06-21T08:45:00.000Z",
+    "consulta": {
+      "motivo": "Consulta por alopecia androgenética",
+      "tipo_enfermedad": "alopecia_androgenética",
+      "historia_enfermedad": "Pérdida progresiva de cabello en zona frontal y coronilla desde hace 5 años"
+    },
+    "evaluacion_clinica": {
+      "examen_fisico": "Entradas frontales marcadas, rarefacción en coronilla, grado III Hamilton",
+      "plan_tratamiento": "Minoxidil tópico 5% y evaluación para finasterida oral",
+      "observaciones": "Explicar expectativas realistas del tratamiento"
+    },
+    "estado_consulta": "ACTIVA",
+    "fechas": {
+      "creacion": "2025-06-21T08:45:00.000Z",
+      "modificacion": "2025-06-21T08:45:00.000Z"
+    }
+  }
+]

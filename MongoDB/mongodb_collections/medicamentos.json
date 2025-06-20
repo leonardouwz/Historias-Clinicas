@@ -1,0 +1,90 @@
+[
+  {
+    "_id": 1,
+    "nombre": "Tretinoína Crema",
+    "principio_activo": "Tretinoína",
+    "presentacion": "Crema",
+    "concentracion": "0.025%",
+    "descripcion": "Medicamento tópico para tratamiento del acné y envejecimiento cutáneo",
+    "contraindicaciones": "Embarazo, lactancia, hipersensibilidad al componente",
+    "estado": true,
+    "fecha_creacion": "2025-01-10T08:00:00.000Z"
+  },
+  {
+    "_id": 2,
+    "nombre": "Clindamicina Gel",
+    "principio_activo": "Clindamicina",
+    "presentacion": "Gel",
+    "concentracion": "1%",
+    "descripcion": "Antibiótico tópico para tratamiento de acné bacteriano",
+    "contraindicaciones": "Alergia a clindamicina o lincomicina",
+    "estado": true,
+    "fecha_creacion": "2025-01-10T08:00:00.000Z"
+  },
+  {
+    "_id": 3,
+    "nombre": "Hidrocortisona Crema",
+    "principio_activo": "Hidrocortisona",
+    "presentacion": "Crema",
+    "concentracion": "1%",
+    "descripcion": "Corticoide tópico para inflamaciones leves de la piel",
+    "contraindicaciones": "Infecciones virales, bacterianas o micóticas de la piel",
+    "estado": true,
+    "fecha_creacion": "2025-01-11T09:15:00.000Z"
+  },
+  {
+    "_id": 4,
+    "nombre": "Protector Solar SPF 50",
+    "principio_activo": "Óxido de zinc, Dióxido de titanio",
+    "presentacion": "Loción",
+    "concentracion": "SPF 50+",
+    "descripcion": "Protector solar de amplio espectro para fototipos sensibles",
+    "contraindicaciones": "Hipersensibilidad a los componentes",
+    "estado": true,
+    "fecha_creacion": "2025-01-12T10:30:00.000Z"
+  },
+  {
+    "_id": 5,
+    "nombre": "Ketoconazol Shampoo",
+    "principio_activo": "Ketoconazol",
+    "presentacion": "Shampoo",
+    "concentracion": "2%",
+    "descripcion": "Antifúngico para tratamiento de dermatitis seborreica",
+    "contraindicaciones": "Hipersensibilidad al ketoconazol",
+    "estado": true,
+    "fecha_creacion": "2025-01-13T14:20:00.000Z"
+  },
+  {
+    "_id": 6,
+    "nombre": "Ácido Salicílico Loción",
+    "principio_activo": "Ácido Salicílico",
+    "presentacion": "Loción",
+    "concentracion": "2%",
+    "descripcion": "Queratolítico para tratamiento de hiperqueratosis",
+    "contraindicaciones": "Alergia a salicilatos, aplicación en mucosas",
+    "estado": true,
+    "fecha_creacion": "2025-01-14T11:45:00.000Z"
+  },
+  {
+    "_id": 7,
+    "nombre": "Minoxidil Solución",
+    "principio_activo": "Minoxidil",
+    "presentacion": "Solución tópica",
+    "concentracion": "5%",
+    "descripcion": "Vasodilatador para tratamiento de alopecia androgenética",
+    "contraindicaciones": "Hipotensión, cardiopatías, embarazo",
+    "estado": true,
+    "fecha_creacion": "2025-01-15T16:10:00.000Z"
+  },
+  {
+    "_id": 8,
+    "nombre": "Tacrolimus Pomada",
+    "principio_activo": "Tacrolimus",
+    "presentacion": "Pomada",
+    "concentracion": "0.1%",
+    "descripcion": "Inmunosupresor tópico para dermatitis atópica",
+    "contraindicaciones": "Infecciones cutáneas activas, inmunosupresión",
+    "estado": true,
+    "fecha_creacion": "2025-01-16T12:30:00.000Z"
+  }
+]
