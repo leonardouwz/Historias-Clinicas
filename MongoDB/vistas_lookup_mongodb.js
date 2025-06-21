@@ -1,4 +1,370 @@
-// Conectar a la base de datos
+// ============================================================================
+// CONSULTAS ADICIONALES PARA VALIDAR LAS VISTAS CORREGIDAS
+// ============================================================================
+
+// Validar que las edades se calculan correctamente
+db.vista_pacientes_completa.aggregate([
+  {
+    $match: {
+      edad: { $ne: null }
+    }
+  },
+  {
+    $project: {
+      nombre_completo: 1,
+      fecha_nacimiento: 1,
+      edad: 1,
+      es_valida: {
+        $and: [
+          { $gte: ["$edad", 0] },
+          { $lte: ["$edad", 120] }
+        ]
+      }
+    }
+  },
+  {
+    $sort: { edad: 1 }
+  }
+])
+
+// Verificar consultas con edades válidas
+db.vista_consultas_completa.aggregate([
+  {
+    $match: {
+      "paciente.edad": { $ne: null }
+    }
+  },
+  {
+    $project: {
+      "paciente.nombre_completo": 1,
+      "paciente.edad": 1,
+      fecha_consulta: 1,
+      motivo_consulta: 1
+    }
+  },
+  {
+    $limit: 10
+  }
+])
+
+// Verificar recetas con edades calculadas correctamente
+db.vista_recetas_completa.aggregate([
+  {
+    $match: {
+      "paciente.edad": { $ne: null }
+    }
+  },
+  {
+    $project: {
+      "paciente.nombre_completo": 1,
+      "paciente.edad": 1,
+      fecha_emision: 1,
+      diagnostico: 1
+    }
+  },
+  {
+    $limit: 10
+  }
+])
+
+// ============================================================================
+// CONSULTAS MEJORADAS PARA REPORTES CON MANEJO DE FECHAS
+// ============================================================================
+
+// Reporte de consultas por mes (manejando fechas string)
+db.vista_consultas_completa.aggregate([
+  {
+    $addFields: {
+      fecha_consulta_date: {
+        $cond: {
+          if: { $eq: [{ $type: "$fecha_consulta" }, "string"] },
+          then: { $dateFromString: { dateString: "$fecha_consulta" } },
+          else: "$fecha_consulta"
+        }
+      }
+    }
+  },
+  {
+    $group: {
+      _id: {
+        año: { $year: "$fecha_consulta_date" },
+        mes: { $month: "$fecha_consulta_date" }
+      },
+      total_consultas: { $sum: 1 },
+      especialidades: { $addToSet: "$medico.especialidad" },
+      tipos_enfermedad: { $addToSet: "$tipo_enfermedad" }
+    }
+  },
+  {
+    $sort: { "_id.año": -1, "_id.mes": -1 }
+  }
+])
+
+// Reporte de pacientes por grupo etario con validación
+db.vista_reporte_pacientes.aggregate([
+  {
+    $match: {
+      edad: { $gte: 0, $lte: 120 } // Solo edades válidas
+    }
+  },
+  {
+    $group: {
+      _id: {
+        rango_edad: "$rango_edad",
+        genero: "$genero"
+      },
+      total_pacientes: { $sum: 1 },
+      edad_promedio: { $avg: "$edad" },
+      edad_minima: { $min: "$edad" },
+      edad_maxima: { $max: "$edad" },
+      con_historia_clinica: {
+        $sum: {
+          $cond: [{ $eq: ["$tiene_historia_clinica", true] }, 1, 0]
+        }
+      },
+      con_consultas: {
+        $sum: {
+          $cond: [{ $eq: ["$tiene_consultas", true] }, 1, 0]
+        }
+      }
+    }
+  },
+  {
+    $sort: { 
+      "_id.rango_edad": 1, 
+      "_id.genero": 1 
+    }
+  }
+])
+
+// Médicos más activos en los últimos 30 días
+db.vista_estadisticas_medicos.aggregate([
+  {
+    $lookup: {
+      from: "consultas",
+      let: { medico_id: "$_id" },
+      pipeline: [
+        {
+          $addFields: {
+            fecha_consulta_date: {
+              $cond: {
+                if: { $eq: [{ $type: "$fecha_consulta" }, "string"] },
+                then: { $dateFromString: { dateString: "$fecha_consulta" } },
+                else: "$fecha_consulta"
+              }
+            }
+          }
+        },
+        {
+          $match: {
+            $expr: { 
+              $and: [
+                { $eq: ["$id_medico", "$medico_id"] },
+                { $gte: ["$fecha_consulta_date", new Date(Date.now() - 30*24*60*60*1000)] }
+              ]
+            }
+          }
+        }
+      ],
+      as: "consultas_recientes"
+    }
+  },
+  {
+    $project: {
+      nombre_completo: 1,
+      especialidad: 1,
+      consultas_ultimo_mes: { $size: "$consultas_recientes" },
+      "estadisticas.total_consultas": 1
+    }
+  },
+  {
+    $match: {
+      consultas_ultimo_mes: { $gt: 0 }
+    }
+  },
+  {
+    $sort: { consultas_ultimo_mes: -1 }
+  }
+])
+
+// Pacientes con más consultas
+db.vista_historia_clinica_completa.aggregate([
+  {
+    $match: {
+      "resumen_consultas.total_consultas": { $gt: 0 }
+    }
+  },
+  {
+    $project: {
+      "paciente.nombre_completo": 1,
+      "paciente.edad": 1,
+      "paciente.genero": 1,
+      "resumen_consultas.total_consultas": 1,
+      "resumen_consultas.consultas_activas": 1,
+      "resumen_consultas.ultima_consulta": 1,
+      "resumen_consultas.tipos_enfermedades": 1
+    }
+  },
+  {
+    $sort: { "resumen_consultas.total_consultas": -1 }
+  },
+  {
+    $limit: 20
+  }
+])
+
+// Análisis de medicamentos por especialidad
+db.vista_recetas_completa.aggregate([
+  {
+    $unwind: "$medicamentos"
+  },
+  {
+    $lookup: {
+      from: "consultas",
+      localField: "id_consulta",
+      foreignField: "_id",
+      as: "consulta_info"
+    }
+  },
+  {
+    $unwind: "$consulta_info"
+  },
+  {
+    $lookup: {
+      from: "medicos",
+      localField: "consulta_info.id_medico",
+      foreignField: "_id",
+      as: "medico_info"
+    }
+  },
+  {
+    $unwind: "$medico_info"
+  },
+  {
+    $lookup: {
+      from: "especialidades_medicas",
+      localField: "medico_info.id_especialidad",
+      foreignField: "_id",
+      as: "especialidad_info"
+    }
+  },
+  {
+    $unwind: "$especialidad_info"
+  },
+  {
+    $group: {
+      _id: {
+        especialidad: "$especialidad_info.nombre_especialidad",
+        medicamento: "$medicamentos.nombre"
+      },
+      total_prescripciones: { $sum: 1 },
+      principios_activos: { $addToSet: "$medicamentos.principio_activo" },
+      indicaciones: { $addToSet: "$medicamentos.indicacion" }
+    }
+  },
+  {
+    $sort: { 
+      "_id.especialidad": 1, 
+      total_prescripciones: -1 
+    }
+  }
+])
+
+// ============================================================================
+// FUNCIONES AUXILIARES PARA MANEJO DE FECHAS
+// ============================================================================
+
+// Función para convertir fechas string a Date (usar en agregaciones)
+function convertirFechaADate(campo) {
+  return {
+    $cond: {
+      if: { 
+        $and: [
+          { $ne: [campo, null] },
+          { $ne: [campo, ""] }
+        ]
+      },
+      then: {
+        $cond: {
+          if: { $eq: [{ $type: campo }, "string"] },
+          then: { 
+            $dateFromString: { 
+              dateString: campo,
+              onError: new Date("1900-01-01") // Fecha por defecto en caso de error
+            }
+          },
+          else: campo
+        }
+      },
+      else: new Date("1900-01-01")
+    }
+  }
+}
+
+// Función para calcular edad de forma segura
+function calcularEdad(fechaNacimiento, fechaReferencia = new Date()) {
+  return {
+    $cond: {
+      if: { 
+        $and: [
+          { $ne: [fechaNacimiento, null] },
+          { $ne: [fechaNacimiento, ""] }
+        ]
+      },
+      then: {
+        $floor: {
+          $divide: [
+            { 
+              $subtract: [
+                fechaReferencia,
+                convertirFechaADate(fechaNacimiento)
+              ]
+            },
+            365.25 * 24 * 60 * 60 * 1000
+          ]
+        }
+      },
+      else: null
+    }
+  }
+}
+
+// ============================================================================
+// COMANDOS PARA ELIMINAR VISTAS (SI ES NECESARIO)
+// ============================================================================
+
+/*
+db.vista_medicos_completa.drop()
+db.vista_pacientes_completa.drop()
+db.vista_consultas_completa.drop()
+db.vista_recetas_completa.drop()
+db.vista_medicamentos_indicaciones.drop()
+db.vista_historia_clinica_completa.drop()
+db.vista_estadisticas_medicos.drop()
+db.vista_reporte_pacientes.drop()
+*/
+
+// ============================================================================
+// COMANDOS PARA RECREAR TODAS LAS VISTAS
+// ============================================================================
+
+/*
+// Ejecutar estos comandos para recrear todas las vistas con las correcciones
+db.vista_medicos_completa.drop()
+db.vista_pacientes_completa.drop()
+db.vista_consultas_completa.drop()
+db.vista_recetas_completa.drop()
+db.vista_medicamentos_indicaciones.drop()
+db.vista_historia_clinica_completa.drop()
+db.vista_estadisticas_medicos.drop()
+db.vista_reporte_pacientes.drop()
+
+// Luego ejecutar todo el script nuevamente desde el inicio
+*/
+
+// ============================================================================
+// FIN DE VISTAS CON LOOKUP - FECHAS CORREGIDAS
+// ============================================================================ Conectar a la base de datos
 use clinica_dermatologica
 
 // ============================================================================
@@ -115,11 +481,43 @@ db.createView("vista_pacientes_completa", "pacientes", [
       fecha_nacimiento: 1,
       genero: 1,
       edad: {
-        $floor: {
-          $divide: [
-            { $subtract: [new Date(), "$fecha_nacimiento"] },
-            365.25 * 24 * 60 * 60 * 1000
-          ]
+        $cond: {
+          if: { 
+            $and: [
+              { $ne: ["$fecha_nacimiento", null] },
+              { $ne: ["$fecha_nacimiento", ""] }
+            ]
+          },
+          then: {
+            $floor: {
+              $divide: [
+                { 
+                  $subtract: [
+                    new Date(), 
+                    {
+                      $cond: {
+                        if: { $type: "$fecha_nacimiento" },
+                        then: {
+                          $switch: {
+                            branches: [
+                              {
+                                case: { $eq: [{ $type: "$fecha_nacimiento" }, "string"] },
+                                then: { $dateFromString: { dateString: "$fecha_nacimiento" } }
+                              }
+                            ],
+                            default: "$fecha_nacimiento"
+                          }
+                        },
+                        else: new Date()
+                      }
+                    }
+                  ]
+                },
+                365.25 * 24 * 60 * 60 * 1000
+              ]
+            }
+          },
+          else: null
         }
       },
       es_menor_edad: {
@@ -233,11 +631,41 @@ db.createView("vista_consultas_completa", "consultas", [
         nombre_completo: "$paciente.nombre_completo",
         dni: "$paciente.dni",
         edad: {
-          $floor: {
-            $divide: [
-              { $subtract: ["$fecha_consulta", "$paciente.fecha_nacimiento"] },
-              365.25 * 24 * 60 * 60 * 1000
-            ]
+          $cond: {
+            if: { 
+              $and: [
+                { $ne: ["$paciente.fecha_nacimiento", null] },
+                { $ne: ["$paciente.fecha_nacimiento", ""] },
+                { $ne: ["$fecha_consulta", null] },
+                { $ne: ["$fecha_consulta", ""] }
+              ]
+            },
+            then: {
+              $floor: {
+                $divide: [
+                  { 
+                    $subtract: [
+                      {
+                        $cond: {
+                          if: { $eq: [{ $type: "$fecha_consulta" }, "string"] },
+                          then: { $dateFromString: { dateString: "$fecha_consulta" } },
+                          else: "$fecha_consulta"
+                        }
+                      },
+                      {
+                        $cond: {
+                          if: { $eq: [{ $type: "$paciente.fecha_nacimiento" }, "string"] },
+                          then: { $dateFromString: { dateString: "$paciente.fecha_nacimiento" } },
+                          else: "$paciente.fecha_nacimiento"
+                        }
+                      }
+                    ]
+                  },
+                  365.25 * 24 * 60 * 60 * 1000
+                ]
+              }
+            },
+            else: null
           }
         },
         genero: "$paciente.genero",
@@ -355,11 +783,41 @@ db.createView("vista_recetas_completa", "recetas", [
           nombre_completo: "$paciente.nombre_completo",
           dni: "$paciente.dni",
           edad: {
-            $floor: {
-              $divide: [
-                { $subtract: ["$fecha_emision", "$paciente.fecha_nacimiento"] },
-                365.25 * 24 * 60 * 60 * 1000
-              ]
+            $cond: {
+              if: { 
+                $and: [
+                  { $ne: ["$paciente.fecha_nacimiento", null] },
+                  { $ne: ["$paciente.fecha_nacimiento", ""] },
+                  { $ne: ["$fecha_emision", null] },
+                  { $ne: ["$fecha_emision", ""] }
+                ]
+              },
+              then: {
+                $floor: {
+                  $divide: [
+                    { 
+                      $subtract: [
+                        {
+                          $cond: {
+                            if: { $eq: [{ $type: "$fecha_emision" }, "string"] },
+                            then: { $dateFromString: { dateString: "$fecha_emision" } },
+                            else: "$fecha_emision"
+                          }
+                        },
+                        {
+                          $cond: {
+                            if: { $eq: [{ $type: "$paciente.fecha_nacimiento" }, "string"] },
+                            then: { $dateFromString: { dateString: "$paciente.fecha_nacimiento" } },
+                            else: "$paciente.fecha_nacimiento"
+                          }
+                        }
+                      ]
+                    },
+                    365.25 * 24 * 60 * 60 * 1000
+                  ]
+                }
+              },
+              else: null
             }
           }
         }
@@ -509,11 +967,33 @@ db.createView("vista_historia_clinica_completa", "historias_clinicas", [
         dni: "$paciente.dni",
         fecha_nacimiento: "$paciente.fecha_nacimiento",
         edad: {
-          $floor: {
-            $divide: [
-              { $subtract: [new Date(), "$paciente.fecha_nacimiento"] },
-              365.25 * 24 * 60 * 60 * 1000
-            ]
+          $cond: {
+            if: { 
+              $and: [
+                { $ne: ["$paciente.fecha_nacimiento", null] },
+                { $ne: ["$paciente.fecha_nacimiento", ""] }
+              ]
+            },
+            then: {
+              $floor: {
+                $divide: [
+                  { 
+                    $subtract: [
+                      new Date(), 
+                      {
+                        $cond: {
+                          if: { $eq: [{ $type: "$paciente.fecha_nacimiento" }, "string"] },
+                          then: { $dateFromString: { dateString: "$paciente.fecha_nacimiento" } },
+                          else: "$paciente.fecha_nacimiento"
+                        }
+                      }
+                    ]
+                  },
+                  365.25 * 24 * 60 * 60 * 1000
+                ]
+              }
+            },
+            else: null
           }
         },
         genero: "$paciente.genero",
@@ -721,84 +1201,63 @@ db.createView("vista_reporte_pacientes", "pacientes", [
     }
   },
   {
+    $addFields: {
+      edad_calculada: {
+        $cond: {
+          if: { 
+            $and: [
+              { $ne: ["$fecha_nacimiento", null] },
+              { $ne: ["$fecha_nacimiento", ""] }
+            ]
+          },
+          then: {
+            $floor: {
+              $divide: [
+                { 
+                  $subtract: [
+                    new Date(), 
+                    {
+                      $cond: {
+                        if: { $eq: [{ $type: "$fecha_nacimiento" }, "string"] },
+                        then: { $dateFromString: { dateString: "$fecha_nacimiento" } },
+                        else: "$fecha_nacimiento"
+                      }
+                    }
+                  ]
+                },
+                365.25 * 24 * 60 * 60 * 1000
+              ]
+            }
+          },
+          else: 0
+        }
+      }
+    }
+  },
+  {
     $project: {
       _id: 1,
       nombre_completo: 1,
       dni: 1,
       genero: 1,
-      edad: {
-        $floor: {
-          $divide: [
-            { $subtract: [new Date(), "$fecha_nacimiento"] },
-            365.25 * 24 * 60 * 60 * 1000
-          ]
-        }
-      },
+      edad: "$edad_calculada",
       rango_edad: {
         $switch: {
           branches: [
             {
-              case: {
-                $lte: [
-                  {
-                    $floor: {
-                      $divide: [
-                        { $subtract: [new Date(), "$fecha_nacimiento"] },
-                        365.25 * 24 * 60 * 60 * 1000
-                      ]
-                    }
-                  },
-                  12
-                ]
-              },
+              case: { $lte: ["$edad_calculada", 12] },
               then: "Niño (0-12)"
             },
             {
-              case: {
-                $lte: [
-                  {
-                    $floor: {
-                      $divide: [
-                        { $subtract: [new Date(), "$fecha_nacimiento"] },
-                        365.25 * 24 * 60 * 60 * 1000
-                      ]
-                    }
-                  },
-                  17
-                ]
-              },
+              case: { $lte: ["$edad_calculada", 17] },
               then: "Adolescente (13-17)"
             },
             {
-              case: {
-                $lte: [
-                  {
-                    $floor: {
-                      $divide: [
-                        { $subtract: [new Date(), "$fecha_nacimiento"] },
-                        365.25 * 24 * 60 * 60 * 1000
-                      ]
-                    }
-                  },
-                  30
-                ]
-              },
+              case: { $lte: ["$edad_calculada", 30] },
               then: "Joven Adulto (18-30)"
             },
             {
-              case: {
-                $lte: [
-                  {
-                    $floor: {
-                      $divide: [
-                        { $subtract: [new Date(), "$fecha_nacimiento"] },
-                        365.25 * 24 * 60 * 60 * 1000
-                      ]
-                    }
-                  },
-                  50
-                ]
-              },
+              case: { $lte: ["$edad_calculada", 50] },
               then: "Adulto (31-50)"
             }
           ],
@@ -917,13 +1376,33 @@ db.vista_reporte_pacientes.aggregate([
   }
 ])
 
-// Recetas que vencen pronto
-db.vista_recetas_completa.find({
-  estado_receta: "VIGENTE",
-  fecha_vencimiento: {
-    $lte: new Date(Date.now() + 7*24*60*60*1000) // próximos 7 días
+// Recetas que vencen pronto (mejorado para manejar fechas string)
+db.vista_recetas_completa.aggregate([
+  {
+    $match: {
+      estado_receta: "VIGENTE"
+    }
+  },
+  {
+    $addFields: {
+      fecha_vencimiento_date: {
+        $cond: {
+          if: { $eq: [{ $type: "$fecha_vencimiento" }, "string"] },
+          then: { $dateFromString: { dateString: "$fecha_vencimiento" } },
+          else: "$fecha_vencimiento"
+        }
+      }
+    }
+  },
+  {
+    $match: {
+      fecha_vencimiento_date: {
+        $lte: new Date(Date.now() + 7*24*60*60*1000) // próximos 7 días
+      }
+    }
   }
-})
+])
+
 
 // ============================================================================
 // COMANDOS PARA ELIMINAR VISTAS (SI ES NECESARIO)
