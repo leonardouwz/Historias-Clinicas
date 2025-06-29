@@ -1,0 +1,48 @@
+🧨 docker-compose down
+👉 "Apaga y elimina" los contenedores
+
+¿Qué hace exactamente?
+Detiene los contenedores definidos en tu docker-compose.yml.
+
+Elimina esos contenedores.
+
+No borra tus volúmenes (a menos que le pongas -v).
+
+No borra tus imágenes (las capas descargadas siguen).
+
+📦 Ejemplo:
+Si tienes corriendo MongoDB y Mongo Express:
+
+docker-compose down
+⛔ Apaga y elimina ambos, pero los datos del volumen de Mongo se conservan.
+
+🚀 docker-compose up -d
+👉 "Crea y levanta" los contenedores en segundo plano
+
+¿Qué hace exactamente?
+Busca el archivo docker-compose.yml.
+
+Crea los contenedores necesarios (si no existen).
+
+Descarga las imágenes si no las tienes.
+
+Levanta los servicios en segundo plano (por eso el -d de "detached").
+
+🛠 Sin -d:
+docker-compose up
+Verás los logs en pantalla (útil para debugging).
+
+🛠 Con -d:
+docker-compose up -d
+Se ejecuta en segundo plano y te devuelve el control de la terminal.
+
+🔁 Uso típico (workflow)
+# Apago todo (sin borrar datos)
+docker-compose down
+
+# Levanto todo de nuevo
+docker-compose up -d
+🧨 ¿Y si quiero borrar también los datos?
+docker-compose down -v
+Elimina los volúmenes (ej. datos persistentes de MongoDB). Úsalo con cuidado ⚠️.
+
