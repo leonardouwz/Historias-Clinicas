@@ -23,13 +23,7 @@ SELECT * FROM Pacientes
 
 REVERT;
 
---3 Eliminar paciente – ❌ No permitido
 
-EXECUTE AS USER = 'medico_db';
-
-DELETE FROM Pacientes WHERE dni = '87654321';
-
-REVERT;
  
 
  --4. Ejecutar procedimiento clínico 
