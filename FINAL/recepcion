@@ -10,24 +10,41 @@
 EXECUTE AS USER = 'recepcion_db';
 
 INSERT INTO Pacientes (nombre_completo, dni, fecha_nacimiento, genero)
-VALUES ('Lucía suarez', '45612379', '1990-03-23', 'F');
+VALUES ('Maria Mar', '78945622', '1985-05-10', 'F');
+
 
 REVERT;
 
-SELECT * FROM Pacientes WHERE dni = '45612379';
+SELECT * FROM Pacientes WHERE dni = '78945622';
+SELECT * FROM Pacientes
 
 ---2. Crear consulta – ✅ Permitido
+
+
+-- Crear historia clínica
+INSERT INTO HistoriasClinicas (id_paciente, fecha_creacion, estado)
+SELECT id_paciente, GETDATE(), 1
+FROM Pacientes
+WHERE dni = '78945622';
+
 
 EXECUTE AS USER = 'recepcion_db';
 
 EXEC SP_CrearConsulta 
-    @id_paciente = (SELECT id_paciente FROM Pacientes WHERE dni = '45612378'),
-    @id_medico = 1,  -- Asegúrate que este ID exista
-    @sintomas = 'Dolor de cabeza';
+    @dni_paciente = '78945622',
+    @id_medico = 1,  -- Asegúrate de que el médico con ID 1 exista y esté activo
+    @fecha_consulta = '2025-07-07 10:00:00',
+    @motivo_consulta = 'Dolor de cabeza persistente',
+    @tipo_enfermedad = 'Neurológica',
+    @historia_enfermedad = 'El paciente presenta cefalea intensa desde hace 3 días.',
+    @examen_fisico = 'Sin hallazgos anormales visibles',
+    @plan_tratamiento = 'Administrar analgésico y reposo',
+    @observaciones = 'Se recomienda seguimiento en 3 días';
 
 REVERT;
 
-SELECT TOP 5 * FROM Consultas ORDER BY fecha_consulta DESC;
+SELECT * FROM Consultas;
+
 
 ----3. Eliminar consulta – ❌ No permitido
 EXECUTE AS USER = 'recepcion_db';
@@ -37,6 +54,8 @@ DELETE FROM Consultas WHERE id_consulta = 3;
 REVERT;
 
 select * From Consultas
+SELECT TOP 5 * FROM Consultas ORDER BY fecha_consulta DESC;
+
 
 -- 4. Ver médicos – ✅ Permitido (solo lectura)
 
@@ -46,7 +65,7 @@ SELECT nombre_completo FROM Medicos;
 
 REVERT;
 
---5. Ver historial de cambios – ❌ No permitido
+--5. Ver historial de cambios 
 
 EXECUTE AS USER = 'recepcion_db';
 
