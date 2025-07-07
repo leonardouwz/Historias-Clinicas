@@ -6,7 +6,7 @@ Este documento explica en detalle el sistema de historias clínicas para una cl�
 
 1. `HC_1.sql` - Contiene la estructura base de la base de datos
 2. `HC_2.sql` - Contiene las funcionalidades avanzadas
-
+3.  usar inser services.msc en la terminal 
 Voy a explicar todo el sistema paso a paso, desde la creación de la base de datos hasta las funcionalidades más complejas.
 
 ## Estructura Base (HC_1.sql)
