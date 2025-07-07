@@ -1,5 +1,3 @@
-
-
 ------ -ROL: Médico (medico_db)
 
 --1 INSERTAR PACIENTE
@@ -18,8 +16,10 @@ SELECT * FROM Pacientes WHERE dni = '78945613';
 EXECUTE AS USER = 'medico_db';
 
 UPDATE Pacientes
-SET telefono_emergencia = '987654321'
-WHERE dni = '78945612';
+SET estado = 1
+WHERE dni = '87654321';
+
+SELECT * FROM Pacientes
 
 REVERT;
 
@@ -27,7 +27,7 @@ REVERT;
 
 EXECUTE AS USER = 'medico_db';
 
-DELETE FROM Pacientes WHERE dni = '78945612';
+DELETE FROM Pacientes WHERE dni = '87654321';
 
 REVERT;
  
@@ -35,7 +35,7 @@ REVERT;
  --4. Ejecutar procedimiento clínico 
  EXECUTE AS USER = 'medico_db';
 
-EXEC SP_BuscarHistorialPaciente @dni_paciente = '78945612';
+EXEC SP_BuscarHistorialPaciente @dni_paciente = '87654321';
 
 REVERT;
 
