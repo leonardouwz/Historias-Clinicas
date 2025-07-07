@@ -28,7 +28,7 @@ GO
 CREATE USER recepcion_db FOR LOGIN recepcion_principal;
 GO
 --3. Asignación de Roles y Permisos
-sql
+-- sql
 -- Administrador: acceso completo
 ALTER ROLE db_owner ADD MEMBER admin_db;
 GO
