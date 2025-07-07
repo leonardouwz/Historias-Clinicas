@@ -1,0 +1,67 @@
+
+
+------ -ROL: Médico (medico_db)
+
+--1 INSERTAR PACIENTE
+EXECUTE AS USER = 'medico_db';
+
+INSERT INTO Pacientes (nombre_completo, dni, fecha_nacimiento, genero)
+VALUES ('Maria', '78945613', '1985-05-10', 'F');
+
+REVERT;
+--
+SELECT * FROM Pacientes WHERE dni = '78945613';
+
+
+
+--2 ACTUALIZAR DATOS DEL PACIENTE 
+EXECUTE AS USER = 'medico_db';
+
+UPDATE Pacientes
+SET telefono_emergencia = '987654321'
+WHERE dni = '78945612';
+
+REVERT;
+
+--3 Eliminar paciente – ❌ No permitido
+
+EXECUTE AS USER = 'medico_db';
+
+DELETE FROM Pacientes WHERE dni = '78945612';
+
+REVERT;
+ 
+
+ --4. Ejecutar procedimiento clínico 
+ EXECUTE AS USER = 'medico_db';
+
+EXEC SP_BuscarHistorialPaciente @dni_paciente = '78945612';
+
+REVERT;
+
+--5. Crear receta médica – ✅ Permitido
+EXECUTE AS USER = 'medico_db';
+
+EXEC SP_CrearReceta 
+    @id_consulta = 1,
+    @diagnostico = 'Dermatitis leve',
+    @medicamentos_json = NULL;
+
+REVERT;
+
+--
+SELECT TOP 5 * FROM Recetas ORDER BY fecha_emision DESC;
+
+
+-----------3. Verificar el historial clínico
+-- Consultas hechas al paciente
+SELECT * 
+FROM Consultas c
+JOIN HistoriasClinicas h ON c.id_historia = h.id_historia
+JOIN Pacientes p ON h.id_paciente = p.id_paciente
+WHERE p.dni = '78945612';
+
+-----------4. Verificar en tabla de auditoría
+SELECT TOP 10 * FROM HistorialCambios ORDER BY fecha_cambio DESC;
+
+
